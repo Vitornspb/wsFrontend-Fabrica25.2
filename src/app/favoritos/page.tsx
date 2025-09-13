@@ -6,18 +6,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { buscarFavoritos } from '@/utils/favoritos';
 
-// Função para buscar os detalhes de um Pokémon por ID.
 async function buscarDetalhesPokemon(id: number): Promise<PokemonDetalhe> {
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
   return res.json();
 }
 
-// Componente da página de Pokémons favoritos.
 export default function PaginaFavoritos() {
   const [pokemonsFavoritos, setPokemonsFavoritos] = useState<PokemonDetalhe[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Efeito para carregar os Pokémons favoritos do localStorage.
   useEffect(() => {
     async function carregarFavoritos() {
       const ids = buscarFavoritos();

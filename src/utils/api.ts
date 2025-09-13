@@ -1,6 +1,5 @@
 import { PokemonDetalhe } from '@/types/pokemon';
 
-// Função para buscar a lista de 151 Pokémons.
 export async function buscarPokemons(): Promise<PokemonDetalhe[]> {
   try {
     const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
