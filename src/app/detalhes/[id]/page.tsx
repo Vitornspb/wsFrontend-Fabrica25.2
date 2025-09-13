@@ -3,9 +3,7 @@ import { PokemonDetalhe } from '@/types/pokemon';
 import Image from 'next/image';
 
 interface PaginaDetalhesProps {
-  params: {
-    id: string;
-  };
+  params: Awaited<{ id: string }>;
 }
 
 async function buscarDetalhesPokemon(id: string): Promise<PokemonDetalhe | null> {
@@ -24,14 +22,17 @@ async function buscarDetalhesPokemon(id: string): Promise<PokemonDetalhe | null>
   }
 }
 
-export default async function PaginaDetalhes({ params }: PaginaDetalhesProps) {
-  const pokemon = await buscarDetalhesPokemon(params.id);
+export default async function PaginaDetalhes({ params }: { params: Promise<PaginaDetalhesProps['params']> }) {
+  const { id } = await params; // 👈 aguarda aqui
+  const pokemon = await buscarDetalhesPokemon(id);
 
   if (!pokemon) {
     notFound();
   }
 
-  const urlImagem = pokemon.sprites.other["official-artwork"].front_default || pokemon.sprites.front_default;
+  const urlImagem =
+    pokemon.sprites.other['official-artwork'].front_default ||
+    pokemon.sprites.front_default;
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-8 md:p-12 max-w-2xl mx-auto mt-12">
@@ -51,12 +52,15 @@ export default async function PaginaDetalhes({ params }: PaginaDetalhesProps) {
           <h1 className="text-4xl md:text-5xl font-bold capitalize text-gray-800">
             {pokemon.name}
           </h1>
-          <span className="text-xl text-gray-500">#{String(pokemon.id).padStart(3, '0')}</span>
+          <span className="text-xl text-gray-500">
+            #{String(pokemon.id).padStart(3, '0')}
+          </span>
           <div className="mt-4">
             <h2 className="text-2xl font-semibold text-gray-700">Detalhes</h2>
             <ul className="mt-2 space-y-1">
               <li className="text-gray-600">
-                <strong>Tipo(s):</strong> {pokemon.types.map(t => t.type.name).join(', ')}
+                <strong>Tipo(s):</strong>{' '}
+                {pokemon.types.map((t) => t.type.name).join(', ')}
               </li>
               <li className="text-gray-600">
                 <strong>Peso:</strong> {pokemon.weight / 10} kg
