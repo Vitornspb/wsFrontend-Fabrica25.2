@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { PokemonDetalhe } from '@/types/pokemon';
 import { buscarPokemons } from '@/utils/api';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function PaginaInicial() {
   const [pokemons, setPokemons] = useState<PokemonDetalhe[]>([]);
@@ -47,19 +48,21 @@ export default function PaginaInicial() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {pokemonsFiltrados.length > 0 ? (
           pokemonsFiltrados.map((pokemon) => (
-            <div key={pokemon.id} className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center">
-              <div className="w-32 h-32 mb-4 relative">
-                <Image
-                  src={pokemon.sprites.other["official-artwork"].front_default}
-                  alt={pokemon.name}
-                  fill
-                  className="object-contain"
-                  priority
-                />
+            <Link href={`/detalhes/${pokemon.id}`} key={pokemon.id}>
+              <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center hover:shadow-xl transition-shadow">
+                <div className="w-32 h-32 mb-4 relative">
+                  <Image
+                    src={pokemon.sprites.other["official-artwork"].front_default}
+                    alt={pokemon.name}
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+                <h2 className="capitalize text-lg font-semibold">{pokemon.name}</h2>
+                <span className="text-gray-500">#{String(pokemon.id).padStart(3, '0')}</span>
               </div>
-              <h2 className="capitalize text-lg font-semibold">{pokemon.name}</h2>
-              <span className="text-gray-500">#{String(pokemon.id).padStart(3, '0')}</span>
-            </div>
+            </Link>
           ))
         ) : (
           <p className="text-center text-gray-500 col-span-full">Nenhum Pokémon encontrado.</p>
