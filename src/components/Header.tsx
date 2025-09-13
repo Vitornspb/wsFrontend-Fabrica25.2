@@ -6,7 +6,7 @@ export default function Header() {
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/">
           <h1 className="text-2xl font-bold cursor-pointer hover:text-gray-200 transition-colors">
-            Pokedex
+            Pokédex
           </h1>
         </Link>
         <nav>
