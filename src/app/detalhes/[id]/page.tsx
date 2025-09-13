@@ -3,7 +3,9 @@ import { PokemonDetalhe } from '@/types/pokemon';
 import Image from 'next/image';
 
 interface PaginaDetalhesProps {
-  params: Awaited<{ id: string }>;
+  params: {
+    id: string;
+  };
 }
 
 async function buscarDetalhesPokemon(id: string): Promise<PokemonDetalhe | null> {
@@ -22,17 +24,14 @@ async function buscarDetalhesPokemon(id: string): Promise<PokemonDetalhe | null>
   }
 }
 
-export default async function PaginaDetalhes({ params }: { params: Promise<PaginaDetalhesProps['params']> }) {
-  const { id } = await params; // 👈 aguarda aqui
-  const pokemon = await buscarDetalhesPokemon(id);
+export default async function PaginaDetalhes({ params }: PaginaDetalhesProps) {
+  const pokemon = await buscarDetalhesPokemon(params.id);
 
   if (!pokemon) {
     notFound();
   }
 
-  const urlImagem =
-    pokemon.sprites.other['official-artwork'].front_default ||
-    pokemon.sprites.front_default;
+  const urlImagem = pokemon.sprites.other['official-artwork'].front_default;
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-8 md:p-12 max-w-2xl mx-auto mt-12">

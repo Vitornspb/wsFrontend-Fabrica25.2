@@ -35,7 +35,7 @@ export default function PaginaInicial() {
 
   const handleAlternarFavorito = (pokemonId: number) => {
     alternarFavorito(pokemonId);
-    setFavoritos(buscarFavoritos());
+    setFavoritos(buscarFavoritos()); 
   };
 
   const alternarVisualizacao = () => {
