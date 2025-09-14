@@ -1,4 +1,4 @@
-Pokedex Completa
+# Pokédex Completa
 
 [![Next.js](https://img.shields.io/badge/Next.js-13.5-blue?logo=next.js&logoColor=white)](https://nextjs.org/) 
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.9-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/) 
