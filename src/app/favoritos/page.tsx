@@ -13,6 +13,8 @@ async function buscarDetalhesPokemon(id: number): Promise<PokemonDetalhe> {
 
 export default function PaginaFavoritos() {
   const [pokemonsFavoritos, setPokemonsFavoritos] = useState<PokemonDetalhe[]>([]);
+  const [pokemonsFiltrados, setPokemonsFiltrados] = useState<PokemonDetalhe[]>([]);
+  const [termoPesquisa, setTermoPesquisa] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -20,10 +22,18 @@ export default function PaginaFavoritos() {
       const ids = buscarFavoritos();
       const detalhesFavoritos = await Promise.all(ids.map(buscarDetalhesPokemon));
       setPokemonsFavoritos(detalhesFavoritos);
+      setPokemonsFiltrados(detalhesFavoritos);
       setIsLoading(false);
     }
     carregarFavoritos();
   }, []);
+
+  useEffect(() => {
+    const listaFiltrada = pokemonsFavoritos.filter(pokemon =>
+      pokemon.name.toLowerCase().includes(termoPesquisa.toLowerCase())
+    );
+    setPokemonsFiltrados(listaFiltrada);
+  }, [termoPesquisa, pokemonsFavoritos]);
 
   if (isLoading) {
     return <p className="text-center mt-8 text-gray-600">Carregando Pokémons favoritos...</p>;
@@ -31,10 +41,19 @@ export default function PaginaFavoritos() {
 
   return (
     <section>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Meus Pokémons Favoritos</h1>
-      {pokemonsFavoritos.length > 0 ? (
+      <div className="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0 md:space-x-4">
+        <h1 className="text-3xl font-bold text-gray-800">Meus Pokémons Favoritos</h1>
+        <input
+          type="text"
+          placeholder="Pesquisar Pokémon..."
+          className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 w-full md:w-auto"
+          value={termoPesquisa}
+          onChange={(e) => setTermoPesquisa(e.target.value)}
+        />
+      </div>
+      {pokemonsFiltrados.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {pokemonsFavoritos.map((pokemon) => (
+          {pokemonsFiltrados.map((pokemon) => (
             <Link href={`/detalhes/${pokemon.id}`} key={pokemon.id}>
               <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center hover:shadow-xl transition-shadow">
                 <div className="w-32 h-32 mb-4 relative">
