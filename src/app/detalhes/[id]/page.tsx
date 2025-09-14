@@ -10,16 +10,9 @@ interface PaginaDetalhesProps {
 
 async function buscarDetalhesPokemon(id: string): Promise<PokemonDetalhe | null> {
   try {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
-      cache: "no-store",
-    });
-    
-    if (!res.ok) {
-      return null;
-    }
-    
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, { cache: "no-store" });
+    if (!res.ok) return null;
     return res.json();
-    
   } catch (error) {
     console.error('Falha ao buscar detalhes do Pokémon:', error);
     return null;
@@ -27,12 +20,10 @@ async function buscarDetalhesPokemon(id: string): Promise<PokemonDetalhe | null>
 }
 
 export default async function PaginaDetalhes({ params }: PaginaDetalhesProps) {
-  const { id } = await Promise.resolve(params); // ✅ garante que params seja resolvido
-  const pokemon = await buscarDetalhesPokemon(id);
+  const { id } = await Promise.resolve(params);
 
-  if (!pokemon) {
-    notFound();
-  }
+  const pokemon = await buscarDetalhesPokemon(id);
+  if (!pokemon) notFound();
 
   const urlImagem = pokemon.sprites.other['official-artwork'].front_default;
 
@@ -57,17 +48,17 @@ export default async function PaginaDetalhes({ params }: PaginaDetalhesProps) {
           <span className="text-xl text-gray-500">
             #{String(pokemon.id).padStart(3, '0')}
           </span>
+
           <div className="mt-4">
             <h2 className="text-2xl font-semibold text-gray-700">Detalhes</h2>
-            <ul className="mt-2 space-y-1">
-              <li className="text-gray-600">
-                <strong>Tipo(s):</strong>{' '}
-                {pokemon.types.map((t) => t.type.name).join(', ')}
+            <ul className="mt-2 space-y-1 text-gray-600">
+              <li>
+                <strong>Tipo(s):</strong> {pokemon.types.map(t => t.type.name).join(', ')}
               </li>
-              <li className="text-gray-600">
+              <li>
                 <strong>Peso:</strong> {pokemon.weight / 10} kg
               </li>
-              <li className="text-gray-600">
+              <li>
                 <strong>Altura:</strong> {pokemon.height / 10} m
               </li>
             </ul>

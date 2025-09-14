@@ -3,9 +3,8 @@
 import { useState, useEffect } from 'react';
 import { PokemonDetalhe } from '@/types/pokemon';
 import { buscarPokemons } from '@/utils/api';
-import Image from 'next/image';
-import Link from 'next/link';
 import { buscarFavoritos, alternarFavorito } from '@/utils/favoritos';
+import PokemonCard from '@/components/PokemonCard';
 
 export default function PaginaInicial() {
   const [pokemons, setPokemons] = useState<PokemonDetalhe[]>([]);
@@ -53,6 +52,7 @@ export default function PaginaInicial() {
         <div className="flex items-center space-x-2 w-full md:w-auto">
           <input
             type="text"
+            aria-label="Pesquisar Pokémon"
             placeholder="Pesquisar Pokémon..."
             className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 w-full"
             value={termoPesquisa}
@@ -77,38 +77,15 @@ export default function PaginaInicial() {
 
       <div className={tipoVisualizacao === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" : "flex flex-col space-y-4"}>
         {pokemonsFiltrados.length > 0 ? (
-          pokemonsFiltrados.map((pokemon) => {
-            const isFavorito = favoritos.includes(pokemon.id);
-            return (
-              <div key={pokemon.id} className={tipoVisualizacao === 'grid' ? "relative bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center hover:shadow-xl transition-shadow" : "relative bg-white rounded-lg shadow-lg p-4 flex items-center justify-between text-left hover:shadow-xl transition-shadow"}>
-                <button
-                  onClick={() => handleAlternarFavorito(pokemon.id)}
-                  className={`absolute top-2 right-2 p-1 rounded-full transition-colors ${
-                    isFavorito ? 'text-yellow-400' : 'text-gray-400'
-                  }`}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 17.27l-5.18 2.73 1.05-5.84-4.24-4.14 5.86-.85 2.62-5.32 2.62 5.32 5.86.85-4.24 4.14 1.05 5.84z" />
-                  </svg>
-                </button>
-                <Link href={`/detalhes/${pokemon.id}`} className={tipoVisualizacao === 'lista' ? "flex items-center space-x-4 w-full" : "w-full"}>
-                  <div className={tipoVisualizacao === 'grid' ? "w-32 h-32 mb-4 relative" : "w-16 h-16 relative"}>
-                    <Image
-                      src={pokemon.sprites.other["official-artwork"].front_default}
-                      alt={pokemon.name}
-                      fill
-                      className="object-contain"
-                      priority
-                    />
-                  </div>
-                  <div className={tipoVisualizacao === 'lista' ? "flex flex-col" : "w-full"}>
-                    <h2 className="capitalize text-lg font-semibold">{pokemon.name}</h2>
-                    <span className="text-gray-500">#{String(pokemon.id).padStart(3, '0')}</span>
-                  </div>
-                </Link>
-              </div>
-            );
-          })
+          pokemonsFiltrados.map((pokemon) => (
+            <PokemonCard
+              key={pokemon.id}
+              pokemon={pokemon}
+              tipoVisualizacao={tipoVisualizacao}
+              favoritos={favoritos}
+              onFavoritoClick={handleAlternarFavorito}
+            />
+          ))
         ) : (
           <p className="text-center text-gray-500 col-span-full">Nenhum Pokémon encontrado.</p>
         )}
