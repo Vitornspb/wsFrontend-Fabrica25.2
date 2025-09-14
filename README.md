@@ -3,7 +3,7 @@
 [![Next.js](https://img.shields.io/badge/Next.js-13.5-blue?logo=next.js&logoColor=white)](https://nextjs.org/) 
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.9-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/) 
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3-blue?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)  
-[![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel&logoColor=white)](<URL_DO_DEPLOY>)
+[![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel&logoColor=white)](https://ws-frontend-fabrica25-2-olive.vercel.app/)
 
 Um projeto de **Pokedex** desenvolvido com **Next.js 13+, TypeScript e Tailwind CSS**.  
 Permite listar Pokémons, marcar favoritos e visualizar detalhes de cada Pokémon.
@@ -28,7 +28,7 @@ Permite listar Pokémons, marcar favoritos e visualizar detalhes de cada Pokémo
 
 ## 🌐 Acesse o projeto
 
-[💻 Abrir Pokedex no navegador](<URL_DO_DEPLOY>)  
+[💻 Abrir Pokedex no navegador](https://ws-frontend-fabrica25-2-olive.vercel.app/)  
 
 ---
 
@@ -85,7 +85,7 @@ Siga os passos abaixo para clonar o repositório e rodar o projeto localmente.
 
 1.  **Clone o repositório:**
     ```bash
-    git clone <URL_DO_REPOSITORIO>
+    git clone https://github.com/Vitornspb/wsFrontend-Fabrica25.2
     ```
 
 2.  **Acesse a pasta do projeto:**
