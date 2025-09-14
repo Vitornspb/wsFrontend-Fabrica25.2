@@ -10,7 +10,9 @@ interface PaginaDetalhesProps {
 
 async function buscarDetalhesPokemon(id: string): Promise<PokemonDetalhe | null> {
   try {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
+      cache: "no-store",
+    });
     
     if (!res.ok) {
       return null;
@@ -25,7 +27,8 @@ async function buscarDetalhesPokemon(id: string): Promise<PokemonDetalhe | null>
 }
 
 export default async function PaginaDetalhes({ params }: PaginaDetalhesProps) {
-  const pokemon = await buscarDetalhesPokemon(params.id);
+  const { id } = await Promise.resolve(params); // ✅ garante que params seja resolvido
+  const pokemon = await buscarDetalhesPokemon(id);
 
   if (!pokemon) {
     notFound();
