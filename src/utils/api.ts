@@ -33,7 +33,7 @@ export async function buscarPokemons(): Promise<PokemonDetalhe[]> {
         weight: 0,
         height: 0,
       } as PokemonDetalhe;
-    }).filter((p: PokemonDetalhe | null): p is PokemonDetalhe => p !== null); 
+    }).filter((p: PokemonDetalhe | null): p is PokemonDetalhe => p !== null);
 
     return detalhes;
 
