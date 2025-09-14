@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Pokedex Completa
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-13.5-blue?logo=next.js&logoColor=white)](https://nextjs.org/) 
+[![TypeScript](https://img.shields.io/badge/TypeScript-4.9-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/) 
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3-blue?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)  
+[![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel&logoColor=white)](<URL_DO_DEPLOY>)
 
-First, run the development server:
+Um projeto de **Pokedex** desenvolvido com **Next.js 13+, TypeScript e Tailwind CSS**.  
+Permite listar Pokémons, marcar favoritos e visualizar detalhes de cada Pokémon.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔹 Funcionalidades
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Listagem dos 151 primeiros Pokémons.
+- Busca em tempo real por nome.
+- Alternar entre **visualização em grid e lista**.
+- Marcar e desmarcar **Pokémons favoritos** (armazenamento no `localStorage`).
+- Página de **detalhes** de cada Pokémon com:
+  - Imagem oficial
+  - Nome e número
+  - Tipos
+  - Peso e altura
+- Página exclusiva de **Pokémons favoritos**.
+- Deploy funcional e público no **Vercel**.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🌐 Acesse o projeto
 
-To learn more about Next.js, take a look at the following resources:
+[💻 Abrir Pokedex no navegador](<URL_DO_DEPLOY>)  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠 Tecnologias
 
-## Deploy on Vercel
+- **Next.js 13+** (App Router)
+- **TypeScript**
+- **Tailwind CSS**
+- **React Hooks** (`useState`, `useEffect`)
+- **Next/Image** para carregamento otimizado de imagens
+- API oficial de Pokémons: [PokeAPI](https://pokeapi.co/)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📁 Estrutura do Projeto
+
+/pokedex-completa
+├── /public
+│ └── favicon.ico
+├── /src
+│ ├── /app
+│ │ ├── /detalhes/[id]/page.tsx
+│ │ ├── /favoritos/page.tsx
+│ │ ├── page.tsx
+│ │ ├── layout.tsx
+│ │ └── globals.css
+│ ├── /components
+│ │ ├── Header.tsx
+│ │ ├── Footer.tsx
+│ │ └── PokemonCard.tsx
+│ ├── /types
+│ │ └── pokemon.ts
+│ └── /utils
+│ ├── api.ts
+│ └── favoritos.ts
+├── package.json
+├── tailwind.config.ts
+├── tsconfig.json
+└── next.config.mjs
+
+---
+
+## ⚡ Como rodar o projeto localmente
+
+## 💻 Como Rodar o Projeto
+
+Siga os passos abaixo para clonar o repositório e rodar o projeto localmente.
+
+### Pré-requisitos
+
+* Certifique-se de ter o **Node.js** e o **npm** instalados na sua máquina.
+
+### Instalação
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone <URL_DO_REPOSITORIO>
+    ```
+
+2.  **Acesse a pasta do projeto:**
+    ```bash
+    cd pokedex-completa
+    ```
+
+3.  **Instale as dependências:**
+    ```bash
+    npm install
+    ```
+
+4.  **Inicie o servidor de desenvolvimento:**
+    ```bash
+    npm run dev
+    ```
+
+O projeto estará disponível em `http://localhost:3000`.
+
+---
+
+### 💡 Observações
+
+* O projeto usa **App Router** do Next.js, então páginas dinâmicas (ex: `/detalhes/[id]`) precisam usar `async` corretamente com `await` para acessar `params`.
+* Os favoritos são salvos no `localStorage` do navegador para persistência de dados.
+* O componente `PokemonCard` foi criado para evitar repetição de código entre a página inicial e a página de favoritos.
+* O deploy do projeto foi feito no **Vercel**, e o link para a aplicação online está no cabeçalho deste `README`.
+
+---
+
+### 📝 Autor
+
+* **Vitor Nóbrega** – Desenvolvido com Next.js, TypeScript e Tailwind CSS.
