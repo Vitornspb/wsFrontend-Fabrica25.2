@@ -7,7 +7,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { buscarFavoritos, alternarFavorito } from '@/utils/favoritos';
 
-// Componente da página inicial.
 export default function PaginaInicial() {
   const [pokemons, setPokemons] = useState<PokemonDetalhe[]>([]);
   const [pokemonsFiltrados, setPokemonsFiltrados] = useState<PokemonDetalhe[]>([]);
@@ -16,7 +15,6 @@ export default function PaginaInicial() {
   const [favoritos, setFavoritos] = useState<number[]>([]);
   const [tipoVisualizacao, setTipoVisualizacao] = useState<'grid' | 'lista'>('grid');
 
-  // Efeito para carregar os Pokémons e os favoritos.
   useEffect(() => {
     async function carregarDados() {
       const listaPokemons = await buscarPokemons();
@@ -28,7 +26,6 @@ export default function PaginaInicial() {
     carregarDados();
   }, []);
 
-  // Efeito para filtrar a lista com base no termo de pesquisa.
   useEffect(() => {
     const listaFiltrada = pokemons.filter(pokemon =>
       pokemon.name.toLowerCase().includes(termoPesquisa.toLowerCase())
@@ -36,13 +33,11 @@ export default function PaginaInicial() {
     setPokemonsFiltrados(listaFiltrada);
   }, [termoPesquisa, pokemons]);
 
-  // Função para adicionar/remover um Pokémon dos favoritos.
   const handleAlternarFavorito = (pokemonId: number) => {
     alternarFavorito(pokemonId);
-    setFavoritos(buscarFavoritos()); // Atualiza o estado para refletir a mudança.
+    setFavoritos(buscarFavoritos());
   };
 
-  // Função para alternar a visualização.
   const alternarVisualizacao = () => {
     setTipoVisualizacao(tipoVisualizacao === 'grid' ? 'lista' : 'grid');
   };
@@ -67,7 +62,6 @@ export default function PaginaInicial() {
             onClick={alternarVisualizacao}
             className="p-2 border border-gray-300 rounded-md shadow-sm cursor-pointer"
           >
-            {/* Adiciona a lógica para exibir o ícone correto */}
             {tipoVisualizacao === 'grid' ? (
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M4 8H20V6H4V8ZM4 13H20V11H4V13ZM4 18H20V16H4V18Z" />
